@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f7f4" />
+    <title>Tablero | C&oacute;digo Secreto</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="16x16 32x32 48x48"
+      href="favicon.ico" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="assets/logo.svg" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/board.css" />
+    <script src="scripts/vendor/qrcode.min.js" defer></script>
+    <script type="module" src="scripts/board.js"></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="page-header">
+        <div class="brand">
+          <img
+            class="brand-logo"
+            src="assets/logo.svg"
+            width="44"
+            height="44"
+            alt="" />
+          <div class="brand-caption">
+            <h1>C&oacute;digo Secreto</h1>
+            <p class="eyebrow">Tablero</p>
+          </div>
+        </div>
+        <span id="deck-name" class="view-label">Mazo</span>
+      </header>
+      <section class="toolbar" aria-label="Partida">
+        <button
+          id="new-game"
+          class="button icon-button game-control"
+          type="button"
+          title="Nueva partida"
+          aria-label="Nueva partida"
+          disabled>
+          <img
+            src="assets/icons/refresh-cw.svg"
+            width="20"
+            height="20"
+            alt="" />
+        </button>
+        <button
+          id="share-game"
+          class="button icon-button game-control"
+          type="button"
+          title="Compartir ficha"
+          aria-label="Compartir ficha"
+          aria-controls="share-panel"
+          aria-expanded="false"
+          disabled>
+          <img src="assets/icons/qr-code.svg" width="20" height="20" alt="" />
+        </button>
+        <button
+          id="validate-game"
+          class="button button-primary game-control"
+          type="button"
+          disabled>
+          <img
+            src="assets/icons/check-check.svg"
+            width="20"
+            height="20"
+            alt="" />Validar
+        </button>
+        <p
+          id="validation-status"
+          class="status validation-status"
+          role="status"
+          aria-live="polite"></p>
+      </section>
+      <section
+        id="share-panel"
+        class="share-panel"
+        aria-label="Compartir ficha con capitanes"
+        hidden>
+        <div id="qr" role="img" aria-label="QR de la ficha de pistas"></div>
+        <div class="share-details">
+          <label for="clue-link">Ficha de pistas</label>
+          <div class="share-link">
+            <input id="clue-link" type="text" readonly />
+            <button
+              id="copy-link"
+              class="button icon-button"
+              type="button"
+              title="Copiar enlace"
+              aria-label="Copiar enlace">
+              <img src="assets/icons/copy.svg" width="20" height="20" alt="" />
+            </button>
+          </div>
+          <p
+            id="share-status"
+            class="status"
+            role="status"
+            aria-live="polite"></p>
+        </div>
+      </section>
+      <p id="board-status" class="status" role="status" aria-live="polite">
+        Cargando partida&hellip;
+      </p>
+      <section
+        id="board-stage"
+        class="board-stage"
+        hidden
+        aria-labelledby="board-heading">
+        <div class="board-heading">
+          <div class="board-title">
+            <h2 id="board-heading">Partida</h2>
+            <button
+              id="change-clue"
+              class="button icon-button game-control"
+              type="button"
+              title="Cambiar ficha"
+              aria-label="Cambiar ficha"
+              aria-controls="change-clue-dialog"
+              disabled>
+              <img
+                src="assets/icons/pencil.svg"
+                width="20"
+                height="20"
+                alt="" />
+            </button>
+          </div>
+          <div class="board-actions">
+            <p id="starting-team" class="team-label"></p>
+            <button
+              id="focus-board"
+              class="button icon-button game-control"
+              type="button"
+              title="Ampliar tablero"
+              aria-label="Ampliar tablero"
+              aria-controls="board-stage"
+              aria-pressed="false"
+              disabled>
+              <img
+                id="focus-icon"
+                src="assets/icons/maximize.svg"
+                width="20"
+                height="20"
+                alt="" />
+            </button>
+          </div>
+        </div>
+        <div
+          id="word-grid"
+          class="word-grid"
+          aria-label="Tablero de palabras"></div>
+      </section>
+      <footer class="board-footer">
+        <span>C&oacute;digo Secreto</span>
+        <span>25 palabras &middot; 2 equipos</span>
+      </footer>
+      <noscript>Activa JavaScript para jugar.</noscript>
+    </main>
+    <dialog
+      id="change-clue-dialog"
+      class="confirmation-dialog"
+      aria-labelledby="change-clue-title"
+      aria-describedby="change-clue-message">
+      <form id="change-clue-form" novalidate>
+        <div class="confirmation-heading">
+          <img src="assets/icons/pencil.svg" width="24" height="24" alt="" />
+          <h2 id="change-clue-title">Cambiar ficha</h2>
+        </div>
+        <p id="change-clue-message">
+          Introduce el ID que ven los capitanes. Se conservar&aacute;n las
+          palabras y las marcas; la validaci&oacute;n usar&aacute; la nueva
+          ficha
+        </p>
+        <div class="deck-field">
+          <label for="board-clue-id">Ficha</label>
+          <input
+            id="board-clue-id"
+            type="number"
+            min="0"
+            step="1"
+            required
+            autofocus />
+        </div>
+        <p
+          id="change-clue-status"
+          class="status error"
+          role="status"
+          aria-live="polite"></p>
+        <div class="confirmation-actions">
+          <button id="cancel-clue-change" class="button" type="button">
+            Cancelar
+          </button>
+          <button class="button button-primary" type="submit">
+            Cambiar ficha
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog
+      id="new-game-dialog"
+      class="confirmation-dialog"
+      aria-labelledby="confirmation-title"
+      aria-describedby="confirmation-message">
+      <form id="create-game-form" method="dialog">
+        <div class="confirmation-heading">
+          <img
+            src="assets/icons/refresh-cw.svg"
+            width="24"
+            height="24"
+            alt="" />
+          <h2 id="confirmation-title">Crear partida</h2>
+        </div>
+        <p id="confirmation-message"></p>
+        <div class="deck-field">
+          <label for="deck">Mazo</label>
+          <select id="deck" name="deck" required autofocus></select>
+        </div>
+        <p
+          id="creator-status"
+          class="status"
+          role="status"
+          aria-live="polite"></p>
+        <div class="confirmation-actions">
+          <button id="continue-game" class="button" type="button" hidden>
+            Cancelar
+          </button>
+          <button
+            id="create-game"
+            class="button button-primary"
+            type="submit"
+            value="confirm"
+            disabled>
+            Crear partida
+          </button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

@@ -1,0 +1,261 @@
+.view-label#deck-name {
+  max-width: 45%;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: right;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.board-title,
+.board-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.board-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 140px;
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.board-footer span:first-child {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  color: var(--accent);
+}
+
+body.board-focused {
+  overflow: hidden;
+}
+
+.deck-field {
+  display: grid;
+  gap: 8px;
+}
+
+.deck-field select,
+.deck-field input {
+  width: 100%;
+}
+
+.confirmation-dialog #creator-status,
+.confirmation-dialog #change-clue-status {
+  margin: 14px 0 20px;
+  font-size: 14px;
+}
+
+.board-focused .page-shell {
+  animation: none;
+}
+
+.board-focused .page-shell > :not(.board-stage) {
+  display: none;
+}
+
+.board-focused .board-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-rows: auto minmax(430px, 1fr);
+  gap: 14px;
+  padding: 16px;
+  background: var(--paper);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.board-focused .board-heading {
+  margin: 0;
+}
+
+.board-focused .word-grid {
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  min-height: 0;
+}
+
+.board-focused .word-card {
+  height: auto;
+  min-height: 0;
+}
+
+#focus-board[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: #eaf2ec;
+}
+
+.word-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  height: 120px;
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  user-select: none;
+}
+
+.word-card.red {
+  background: var(--red);
+  color: white;
+}
+.word-card.blue {
+  background: var(--blue);
+  color: white;
+}
+.word-card.gray {
+  background: var(--gray);
+}
+.word-card.black {
+  background: var(--black);
+  color: white;
+}
+
+.card-word {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.card-mark {
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.word-card.incorrect {
+  border: 4px solid #bc1642;
+  box-shadow: inset 0 0 0 2px white;
+}
+
+.word-card.incorrect::after {
+  content: '!';
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  color: #9b1737;
+  font-weight: 700;
+}
+
+.validation-status {
+  flex: 1 1 220px;
+  margin: 0;
+}
+
+#share-game[aria-expanded='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+#share-game[aria-expanded='true'] img {
+  filter: invert(1);
+}
+
+.share-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+#qr {
+  padding: 16px;
+  background: white;
+  width: 272px;
+  height: 272px;
+  flex: 0 0 272px;
+}
+
+#qr img,
+#qr canvas {
+  max-width: 100%;
+  height: auto;
+}
+.share-details {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.share-link {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.share-link input {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .card-word {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .view-label#deck-name {
+    font-size: 18px;
+  }
+  .board-focused .board-stage {
+    padding: 10px;
+    gap: 10px;
+  }
+  .word-grid {
+    gap: 5px;
+  }
+  .word-card {
+    height: 100px;
+    padding: 6px 3px;
+  }
+  .card-word {
+    font-size: 12px;
+  }
+  .validation-status {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .card-word {
+    font-size: 10px;
+  }
+  #qr {
+    width: 256px;
+    height: 256px;
+    flex-basis: 256px;
+    padding: 8px;
+  }
+}

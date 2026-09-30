@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f7f4" />
+    <title>Pistas | C&oacute;digo Secreto</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="16x16 32x32 48x48"
+      href="favicon.ico" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="assets/logo.svg" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/clues.css" />
+    <script type="module" src="scripts/clues.js"></script>
+  </head>
+  <body class="clues-page">
+    <main class="page-shell clues-shell">
+      <header class="page-header">
+        <div class="brand">
+          <img
+            class="brand-logo"
+            src="assets/logo.svg"
+            width="44"
+            height="44"
+            alt="" />
+          <div class="brand-caption">
+            <h1>C&oacute;digo Secreto</h1>
+            <p class="eyebrow">Capitanes</p>
+          </div>
+        </div>
+        <span class="view-label">Pistas</span>
+      </header>
+
+      <section class="toolbar" aria-label="Seleccionar ficha">
+        <form id="clue-form" class="clue-form">
+          <label for="clue-id">Ficha</label>
+          <input
+            id="clue-id"
+            name="id"
+            type="number"
+            min="0"
+            step="1"
+            inputmode="numeric"
+            required
+            disabled />
+          <button id="open-clue" class="button" type="submit" disabled>
+            Abrir
+          </button>
+        </form>
+        <button
+          id="random-clue"
+          class="button icon-button"
+          type="button"
+          title="Ficha aleatoria"
+          aria-label="Ficha aleatoria"
+          disabled>
+          <img src="assets/icons/dice-5.svg" width="20" height="20" alt="" />
+        </button>
+        <button
+          id="toggle-clue"
+          class="button icon-button"
+          type="button"
+          title="Ocultar pistas"
+          aria-label="Ocultar pistas"
+          aria-controls="clue-grid"
+          aria-pressed="false"
+          disabled>
+          <img
+            id="visibility-icon"
+            src="assets/icons/eye-off.svg"
+            width="20"
+            height="20"
+            alt="" />
+        </button>
+      </section>
+
+      <p id="clue-status" class="status" role="status" aria-live="polite">
+        Cargando fichas&hellip;
+      </p>
+      <section id="clue-view" hidden aria-label="Ficha secreta">
+        <div class="board-heading">
+          <h2 id="clue-heading">Ficha</h2>
+          <p id="starting-team" class="team-label"></p>
+        </div>
+        <div id="clue-grid" class="clue-grid" aria-label="Mapa de pistas"></div>
+        <div id="clue-cover" class="clue-cover" hidden>Pistas ocultas</div>
+        <footer class="clue-footer">
+          <span class="legend-item"
+            ><i class="legend-swatch red"></i>Rojo <b id="red-count"></b
+          ></span>
+          <span class="legend-item"
+            ><i class="legend-swatch blue"></i>Azul <b id="blue-count"></b
+          ></span>
+          <span class="legend-item"
+            ><i class="legend-swatch gray"></i>Neutras <b>7</b></span
+          >
+          <span class="legend-item"
+            ><i class="legend-swatch black"></i>Negra <b>1</b></span
+          >
+        </footer>
+      </section>
+    </main>
+    <dialog
+      id="random-clue-dialog"
+      class="confirmation-dialog"
+      aria-labelledby="random-clue-title"
+      aria-describedby="random-clue-message">
+      <form method="dialog">
+        <div class="confirmation-heading">
+          <img src="assets/icons/dice-5.svg" width="24" height="24" alt="" />
+          <h2 id="random-clue-title">Cambiar ficha</h2>
+        </div>
+        <p id="random-clue-message">
+          La ficha aleatoria puede no coincidir con la del tablero y
+          sustituir&aacute; las pistas actuales
+        </p>
+        <div class="confirmation-actions">
+          <button class="button" type="submit" value="cancel" autofocus>
+            Cancelar
+          </button>
+          <button class="button button-primary" type="submit" value="confirm">
+            Cambiar ficha
+          </button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

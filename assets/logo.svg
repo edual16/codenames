@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Codigo Secreto</title>
+  <rect x="4" y="4" width="26" height="26" rx="5" fill="#cf443e"/>
+  <rect x="34" y="4" width="26" height="26" rx="5" fill="#256bc1"/>
+  <rect x="4" y="34" width="26" height="26" rx="5" fill="#8caf9d"/>
+  <rect x="34" y="34" width="26" height="26" rx="5" fill="#23252b"/>
+  <circle cx="32" cy="32" r="11" fill="#fff"/>
+  <circle cx="32" cy="29" r="3.5" fill="#202923"/>
+  <path d="M30 31h4l1 8h-6z" fill="#202923"/>
+</svg>
